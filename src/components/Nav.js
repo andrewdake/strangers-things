@@ -52,7 +52,7 @@ const NavContainer = styled.nav`
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
-    margin-right: 1em;
+    margin-left: 1em;
   }
 `;
 
