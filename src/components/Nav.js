@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 
 const loggedOutLinks = [
   {
@@ -37,17 +38,35 @@ const loggedInLinks = [
   },
 ];
 
+const NavContainer = styled.nav`
+  & {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1em;
+  }
+  & > a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    margin-right: 1em;
+  }
+`;
+
 export default function Nav({ loggedIn }) {
   const navLinks = loggedIn ? loggedInLinks : loggedOutLinks;
 
   return (
-    <nav>
+    <NavContainer>
       {navLinks.map(({ name, to, iconClassName, icon }) => (
         <NavLink to={to}>
           <i className={iconClassName}>{icon}</i>
           <span>{name}</span>
         </NavLink>
       ))}
-    </nav>
+    </NavContainer>
   );
 }
