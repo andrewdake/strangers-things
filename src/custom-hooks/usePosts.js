@@ -7,9 +7,12 @@ export function usePosts() {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const { data: posts } = await axios.get(
+        const response = await axios.get(
           "https://strangers-things.herokuapp.com/api/2109-OKU-RM-WEB-PT/posts"
         );
+
+        const { posts } = response.data.data;
+
         setPosts(posts);
       } catch (ex) {
         console.error(ex);
