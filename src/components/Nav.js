@@ -61,8 +61,8 @@ export default function Nav({ loggedIn }) {
 
   return (
     <NavContainer>
-      {navLinks.map(({ name, to, iconClassName, icon }) => (
-        <NavLink to={to}>
+      {navLinks.map(({ name, to, iconClassName, icon }, idx) => (
+        <NavLink key={idx} to={to}>
           <i className={iconClassName}>{icon}</i>
           <span>{name}</span>
         </NavLink>
