@@ -5,12 +5,15 @@ import { Nav, AllPosts } from "./components";
 
 function App() {
   return (
-    <Router>
-      <Nav />
-      <Switch>
-        <Route path="/posts" component={AllPosts} />
-      </Switch>
-    </Router>
+    <div>
+      <Router>
+        <Nav />
+        <Switch>
+          <Route path="/pizza" component={() => <div>wtf man</div>} />
+          <Route path="/posts" component={AllPosts} />
+        </Switch>
+      </Router>
+    </div>
   );
 }
 
