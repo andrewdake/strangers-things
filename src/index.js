@@ -1,14 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Nav } from "./components";
+import { Nav, AllPosts } from "./components";
 
 function App() {
   return (
-    <section>
+    <Router>
       <Nav />
-      <div>hello world</div>
-    </section>
+      <Switch>
+        <Route path="/posts" component={AllPosts} />
+      </Switch>
+    </Router>
   );
 }
 
