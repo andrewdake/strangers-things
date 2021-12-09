@@ -1,4 +1,3 @@
-export function useAuth() {
-  const token = localStorage.getItem("strangersThingsAuthToken");
-  return { isLoggedIn: !!token, token };
+export function useLocalStorage(key) {
+  return localStorage.getItem(key);
 }

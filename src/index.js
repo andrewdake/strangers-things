@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Nav, AllPosts } from "./components";
+import { Nav, AllPosts, Home, SignupOrLogin } from "./components";
+import AuthProvider, { AuthContext } from "./context/AuthContext";
 import "./index.css";
 
-import { useAuth } from "./custom-hooks";
-
 function App() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn } = useContext(AuthContext);
 
   return (
     <div>
@@ -18,8 +17,8 @@ function App() {
           <Route path="/home" component={Home} />
           {!isLoggedIn && (
             <>
-              <Route path="/login" component={Login} />
-              <Route path="/signup" component={Signup} />
+              <Route path="/login" component={SignupOrLogin} />
+              <Route path="/signup" component={SignupOrLogin} />
             </>
           )}
           {isLoggedIn && (
@@ -33,4 +32,9 @@ function App() {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <AuthProvider>
+    <App />
+  </AuthProvider>,
+  document.getElementById("root")
+);
