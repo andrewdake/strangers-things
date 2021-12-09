@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Container = styled.section`
   display: flex;
@@ -36,14 +37,20 @@ const buttons = [
 ];
 
 export default function Home() {
+  const { isLoggedIn } = useContext(AuthContext);
+
   return (
     <Container>
       <h1>Stranger's Things</h1>
-      {buttons.map(({ name, to }, idx) => (
-        <SignupOrLoginBtn key={idx} to={to}>
-          {name}
-        </SignupOrLoginBtn>
-      ))}
+      {isLoggedIn ? (
+        <SignupOrLoginBtn to="/posts">View All Posts</SignupOrLoginBtn>
+      ) : (
+        buttons.map(({ name, to }, idx) => (
+          <SignupOrLoginBtn key={idx} to={to}>
+            {name}
+          </SignupOrLoginBtn>
+        ))
+      )}
     </Container>
   );
 }
