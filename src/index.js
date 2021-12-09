@@ -1,6 +1,11 @@
 import React, { useContext } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { Nav, AllPosts, Home, SignupOrLogin } from "./components";
 import AuthProvider, { AuthContext } from "./context/AuthContext";
 import "./index.css";
@@ -19,13 +24,10 @@ function App() {
             <>
               <Route path="/login" component={SignupOrLogin} />
               <Route path="/signup" component={SignupOrLogin} />
+              <Route path="/posts" render={() => <Redirect to="/home" />} />
             </>
           )}
-          {isLoggedIn && (
-            <>
-              <Route path="/posts" component={AllPosts} />
-            </>
-          )}
+          {isLoggedIn && <Route path="/posts" component={AllPosts} />}
         </Switch>
       </Router>
     </div>

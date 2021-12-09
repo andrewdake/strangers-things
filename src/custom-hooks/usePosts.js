@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { BASE_URL } from "../../constants";
 
 export function usePosts() {
   const [posts, setPosts] = useState([]);
@@ -7,13 +7,14 @@ export function usePosts() {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const response = await axios.get(
-          "https://strangers-things.herokuapp.com/api/2109-OKU-RM-WEB-PT/posts"
-        );
+        const response = await fetch(`${BASE_URL}/posts`);
+        const { success, error, data } = await response.json();
 
-        const { posts } = response.data.data;
-
-        setPosts(posts);
+        if (success) {
+          setPosts(data.posts);
+        } else {
+          console.error(error.message);
+        }
       } catch (ex) {
         console.error(ex);
       }

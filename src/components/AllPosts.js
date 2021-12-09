@@ -36,8 +36,6 @@ function Post({ post }) {
 export default function AllPosts() {
   const { posts } = usePosts();
 
-  console.log(posts);
-
   return (
     <section className="container">
       {posts.map((post) => (
