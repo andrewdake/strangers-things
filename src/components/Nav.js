@@ -61,6 +61,10 @@ const NavContainer = styled.nav`
   & > a:last-child {
     margin-right: 1em;
   }
+  & > a.active {
+    color: blue;
+    font-weight: bold;
+  }
 `;
 
 export default function Nav() {
@@ -79,6 +83,8 @@ export default function Nav() {
       {navLinks.map(({ name, to, iconClassName, icon }, idx) => (
         <NavLink
           key={idx}
+          exact
+          activeClassName="active"
           to={name === "Logout" ? "/home" : to}
           onClick={name === "Logout" ? logout : null}
         >

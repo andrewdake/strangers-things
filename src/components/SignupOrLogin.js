@@ -46,6 +46,36 @@ const FormField = styled.div`
   }
 `;
 
+const Error = styled.div`
+  & {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1em;
+    border: 2px solid red;
+    padding: 1em;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 220px;
+  }
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: italic;
+    text-align: center;
+  }
+  & > div:last-child {
+    margin-top: 1em;
+  }
+  & > div i {
+    color: red;
+    margin-right: 0.5em;
+  }
+`;
+
 export default function SignupOrLogin() {
   const { updateAuthStatus } = useContext(AuthContext);
   const history = useHistory();
@@ -101,14 +131,16 @@ export default function SignupOrLogin() {
   return (
     <Container>
       <h1>{signupOrLogin === "signup" ? "Register Account" : "Login"}</h1>
-      <form onSubmit={handleSubmit}>
-        {error && (
-          <Error>
+      {error && (
+        <Error>
+          <div>
             <i className="material-icons-outlined">error</i>
-            <div>{error.name}</div>
-            <div>{error.message}</div>
-          </Error>
-        )}
+            <span>{error.name}</span>
+          </div>
+          <div>{error.message}</div>
+        </Error>
+      )}
+      <form onSubmit={handleSubmit}>
         <FormField>
           <label>
             {signupOrLogin === "signup" ? "Choose username" : "Username"}
