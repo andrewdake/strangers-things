@@ -30,7 +30,7 @@ const loggedInLinks = [
   {
     name: "Logout",
     icon: "logout",
-    to: "/logout",
+    // omit to prop to suppress activeClass styling
   },
 ];
 
@@ -46,11 +46,10 @@ export function useNav() {
   };
 
   const linkProps = (name, to) => ({
-    exact: true,
-    activeClassName: "active",
+    activeClassName: to ? "active" : null, // suppress logout link activeClass styling
     to: name === "Logout" ? "/home" : to,
     onClick: name === "Logout" ? logout : null,
   });
 
-  return { logout, linkProps, navLinks };
+  return { linkProps, navLinks };
 }

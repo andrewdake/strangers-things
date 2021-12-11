@@ -28,6 +28,7 @@ function App() {
             </>
           )}
           {isLoggedIn && <Route path="/posts" component={AllPosts} />}
+          <Route path="*" render={() => <Redirect to="/home" />} />
         </Switch>
       </Router>
     </div>
