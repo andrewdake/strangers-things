@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout } from "./util";
+import { CenterLayout } from "./util";
 import { SignupOrLoginBtn } from "./styled";
 import { useHome } from "../custom-hooks";
 
@@ -7,7 +7,7 @@ export default function Home() {
   const { isLoggedIn, buttons } = useHome();
 
   return (
-    <Layout>
+    <CenterLayout>
       <h1>Stranger's Things</h1>
       {isLoggedIn ? (
         <SignupOrLoginBtn to="/posts">View All Posts</SignupOrLoginBtn>
@@ -18,6 +18,6 @@ export default function Home() {
           </SignupOrLoginBtn>
         ))
       )}
-    </Layout>
+    </CenterLayout>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { PostContainer } from "./styled";
 import { formatDate } from "../lib";
 
 export default function Post({ post }) {
@@ -19,7 +20,7 @@ export default function Post({ post }) {
   } = post || {};
 
   return (
-    <div className="postContainer">
+    <PostContainer>
       <h2>{title}</h2>
       <span>{active ? "Active" : "Closed"}</span>
       <div className="author">{author.username}</div>
@@ -28,6 +29,6 @@ export default function Post({ post }) {
       <div>Description</div>
       <p>{description}</p>
       <div>Price: {price}</div>
-    </div>
+    </PostContainer>
   );
 }

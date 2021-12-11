@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout } from "./util";
+import { CenterLayout } from "./util";
 import { useSignupOrLogin } from "../custom-hooks";
 import { FormField, Error } from "./styled";
 
@@ -8,7 +8,7 @@ export default function SignupOrLogin() {
     useSignupOrLogin();
 
   return (
-    <Layout>
+    <CenterLayout>
       <h1>{h1}</h1>
       {error && (
         <Error>
@@ -33,6 +33,6 @@ export default function SignupOrLogin() {
         ))}
         <input type="submit" value="Submit" />
       </form>
-    </Layout>
+    </CenterLayout>
   );
 }

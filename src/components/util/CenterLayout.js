@@ -9,6 +9,6 @@ const Container = styled.section`
   padding: 1em;
 `;
 
-export default function Layout({ children }) {
+export default function CenterLayout({ children }) {
   return <Container>{children}</Container>;
 }
