@@ -35,7 +35,7 @@ export default function Nav() {
   return (
     <NavContainer>
       {navLinks.map(({ name, icon, to }, idx) => (
-        <NavLink key={idx} exact {...linkProps(name, to)}>
+        <NavLink key={idx} {...linkProps(name, to)}>
           <i className={"material-icons-outlined"}>{icon}</i>
           <span>{name}</span>
         </NavLink>

@@ -65,15 +65,8 @@ const Error = styled.div`
 `;
 
 export default function SignupOrLogin() {
-  const {
-    h1,
-    error,
-    form,
-    handleSubmit,
-    handleChange,
-    usernameLabel,
-    passwordLabel,
-  } = useSignupOrLogin();
+  const { h1, error, handleSubmit, handleChange, formFields } =
+    useSignupOrLogin();
 
   return (
     <Layout>
@@ -88,24 +81,17 @@ export default function SignupOrLogin() {
         </Error>
       )}
       <form onSubmit={handleSubmit}>
-        <FormField>
-          <label>{usernameLabel}</label>
-          <input
-            type="text"
-            name="username"
-            value={form.username}
-            onChange={handleChange}
-          />
-        </FormField>
-        <FormField>
-          <label>{passwordLabel}</label>
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-          />
-        </FormField>
+        {formFields.map(({ type, name, label, value }, idx) => (
+          <FormField key={idx}>
+            <label>{label}</label>
+            <input
+              type={type}
+              name={name}
+              value={value}
+              onChange={handleChange}
+            />
+          </FormField>
+        ))}
         <input type="submit" value="Submit" />
       </form>
     </Layout>

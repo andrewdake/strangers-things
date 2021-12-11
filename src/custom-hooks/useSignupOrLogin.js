@@ -58,13 +58,26 @@ export function useSignupOrLogin() {
     }
   };
 
+  const formFields = [
+    {
+      type: "text",
+      name: "username",
+      label: signupOrLogin === "signup" ? "Choose username" : "Username",
+      value: form.username,
+    },
+    {
+      type: "password",
+      name: "password",
+      label: signupOrLogin === "signup" ? "Choose password" : "Password",
+      value: form.password,
+    },
+  ];
+
   return {
     h1: signupOrLogin === "signup" ? "Register Account" : "Login",
     error,
-    form,
     handleSubmit,
     handleChange,
-    usernameLabel: signupOrLogin === "signup" ? "Choose username" : "Username",
-    passwordLabel: signupOrLogin === "signup" ? "Choose password" : "Password",
+    formFields,
   };
 }

@@ -46,6 +46,7 @@ export function useNav() {
   };
 
   const linkProps = (name, to) => ({
+    exact: true,
     activeClassName: "active",
     to: name === "Logout" ? "/home" : to,
     onClick: name === "Logout" ? logout : null,
