@@ -1,6 +1,7 @@
 import React from "react";
 import { usePosts } from "../custom-hooks";
 import { formatDate } from "../lib";
+import { Layout } from "./util";
 
 function Post({ post }) {
   const {
@@ -37,10 +38,10 @@ export default function AllPosts() {
   const { posts } = usePosts();
 
   return (
-    <section className="container">
+    <Layout>
       {posts.map((post) => (
         <Post key={post._id} post={post} />
       ))}
-    </section>
+    </Layout>
   );
 }

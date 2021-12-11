@@ -1,45 +1,7 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import React from "react";
 import { NavLink } from "react-router-dom";
-import { useHistory } from "react-router";
 import styled from "styled-components";
-import { STRANGERS_THINGS_LOCAL_STORAGE_TOKEN_KEY } from "../../constants";
-
-const loggedOutLinks = [
-  {
-    name: "Home",
-    iconClassName: "material-icons-outlined",
-    icon: "home",
-    to: "/home",
-  },
-  {
-    name: "Login",
-    iconClassName: "material-icons-outlined",
-    icon: "login",
-    to: "/login",
-  },
-  {
-    name: "Signup",
-    iconClassName: "material-icons-outlined",
-    icon: "check_box",
-    to: "/signup",
-  },
-];
-
-const loggedInLinks = [
-  {
-    name: "Home",
-    iconClassName: "material-icons-outlined",
-    icon: "home",
-    to: "/home",
-  },
-  {
-    name: "Logout",
-    iconClassName: "material-icons-outlined",
-    icon: "logout",
-    to: "/logout",
-  },
-];
+import { useNav } from "../custom-hooks";
 
 const NavContainer = styled.nav`
   & {
@@ -68,27 +30,13 @@ const NavContainer = styled.nav`
 `;
 
 export default function Nav() {
-  const { isLoggedIn, updateAuthStatus } = useContext(AuthContext);
-  const history = useHistory();
-  const navLinks = isLoggedIn ? loggedInLinks : loggedOutLinks;
-
-  const logout = () => {
-    localStorage.removeItem(STRANGERS_THINGS_LOCAL_STORAGE_TOKEN_KEY);
-    updateAuthStatus();
-    history.push("/home");
-  };
+  const { linkProps, navLinks } = useNav();
 
   return (
     <NavContainer>
-      {navLinks.map(({ name, to, iconClassName, icon }, idx) => (
-        <NavLink
-          key={idx}
-          exact
-          activeClassName="active"
-          to={name === "Logout" ? "/home" : to}
-          onClick={name === "Logout" ? logout : null}
-        >
-          <i className={iconClassName}>{icon}</i>
+      {navLinks.map(({ name, icon, to }, idx) => (
+        <NavLink key={idx} exact {...linkProps(name, to)}>
+          <i className={"material-icons-outlined"}>{icon}</i>
           <span>{name}</span>
         </NavLink>
       ))}

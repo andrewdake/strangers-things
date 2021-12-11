@@ -1,15 +1,8 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-
-const Container = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 1em;
-`;
+import { Layout } from "./util";
 
 const SignupOrLoginBtn = styled(Link)`
   & {
@@ -40,7 +33,7 @@ export default function Home() {
   const { isLoggedIn } = useContext(AuthContext);
 
   return (
-    <Container>
+    <Layout>
       <h1>Stranger's Things</h1>
       {isLoggedIn ? (
         <SignupOrLoginBtn to="/posts">View All Posts</SignupOrLoginBtn>
@@ -51,6 +44,6 @@ export default function Home() {
           </SignupOrLoginBtn>
         ))
       )}
-    </Container>
+    </Layout>
   );
 }
