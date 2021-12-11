@@ -1,19 +1,7 @@
-import React, { useState, useContext } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import React from "react";
 import styled from "styled-components";
-import {
-  BASE_URL,
-  STRANGERS_THINGS_LOCAL_STORAGE_TOKEN_KEY,
-} from "../../constants";
-import { AuthContext } from "../context/AuthContext";
-
-const Container = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-`;
+import { Layout } from "./util";
+import { useSignupOrLogin } from "../custom-hooks";
 
 const FormField = styled.div`
   & {
@@ -77,60 +65,19 @@ const Error = styled.div`
 `;
 
 export default function SignupOrLogin() {
-  const { updateAuthStatus } = useContext(AuthContext);
-  const history = useHistory();
-  const { pathname } = useLocation();
-  const signupOrLogin = pathname.slice(1);
-
-  const [form, setForm] = useState({
-    username: "",
-    password: "",
-  });
-
-  const [error, setError] = useState(null);
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-
-      const response = await fetch(
-        `${BASE_URL}/users/${
-          signupOrLogin === "signup" ? "register" : "login"
-        }`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ user: form }),
-        }
-      );
-
-      const { success, error, data } = await response.json();
-
-      if (success) {
-        setError(null);
-        localStorage.setItem(
-          STRANGERS_THINGS_LOCAL_STORAGE_TOKEN_KEY,
-          data.token
-        );
-        updateAuthStatus();
-        history.push("/posts");
-      } else {
-        setError(error);
-      }
-    } catch (ex) {
-      console.error(ex);
-    }
-  };
+  const {
+    h1,
+    error,
+    form,
+    handleSubmit,
+    handleChange,
+    usernameLabel,
+    passwordLabel,
+  } = useSignupOrLogin();
 
   return (
-    <Container>
-      <h1>{signupOrLogin === "signup" ? "Register Account" : "Login"}</h1>
+    <Layout>
+      <h1>{h1}</h1>
       {error && (
         <Error>
           <div>
@@ -142,9 +89,7 @@ export default function SignupOrLogin() {
       )}
       <form onSubmit={handleSubmit}>
         <FormField>
-          <label>
-            {signupOrLogin === "signup" ? "Choose username" : "Username"}
-          </label>
+          <label>{usernameLabel}</label>
           <input
             type="text"
             name="username"
@@ -153,9 +98,7 @@ export default function SignupOrLogin() {
           />
         </FormField>
         <FormField>
-          <label>
-            {signupOrLogin === "signup" ? "Choose password" : "Password"}
-          </label>
+          <label>{passwordLabel}</label>
           <input
             type="password"
             name="password"
@@ -165,6 +108,6 @@ export default function SignupOrLogin() {
         </FormField>
         <input type="submit" value="Submit" />
       </form>
-    </Container>
+    </Layout>
   );
 }
